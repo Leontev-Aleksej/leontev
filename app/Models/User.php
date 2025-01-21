@@ -19,7 +19,11 @@ class User extends Authenticatable
         return $this->HasMany(Report::class);
     }
 
-    
+    const ADMIN_ROLE='admin';
+
+    public function isAdmin(){
+        return $this->role===self::ADMIN_ROLE;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -28,6 +32,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'middlename',
+        'lastname',
+        'login',
+        'tel',
         'email',
         'password',
     ];
