@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\softDeletes;
 
-class Car extends Model
+class Report extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded=[];
 
     public function user(): BelongsTo{
         return $this->BelongsTo(User::class);
+    }
+
+    public function services(): BelongsTo{
+        return $this->BelongsTo(Service::class);
     }
 }

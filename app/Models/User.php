@@ -13,9 +13,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function cars(): HasMany{
-        return $this->HasMany(Car::class);
+
+    
+    public function reports(): HasMany{
+        return $this->HasMany(Report::class);
     }
+
     
 
     /**
