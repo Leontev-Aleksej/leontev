@@ -11,18 +11,22 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function index() {
+
+
+
+    public function index(){
         $reports = Report::where('user_id', Auth::user()->id)->get();
         $services = Service::all();
         $userId = Auth::id();
-        return view('reports.index', compact('reports', 'userId', 'services'));
+        return view('report.index', compact('reports', 'userId', 'services'));
     }
 
     public function create() {
         $services = Service::all();
         $reports = Report::all();
-        return view('reports.create', compact('services', 'reports'));
+        return view('report.create', compact('services', 'reports'));
     }
+
 
     public function store(Request $request): RedirectResponse {
         $request->validate([
@@ -43,6 +47,28 @@ class ReportController extends Controller
         ]);
 
         return redirect()->route('dashboard');
+    }
+
+    public function show(string $id)
+    {
+        return view('report.show', compact('report'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'number' => 'required',
+            'description' => 'required',
+        ]);
+
+        Report::update($request->all());
+        return redirect()->back();
+    }
+
+    public function destroy(Report $report)
+    {
+        $report -> delete();
+        return redirect()->back();
     }
 
 }

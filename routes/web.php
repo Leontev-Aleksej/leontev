@@ -4,18 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\Admin;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,5 +23,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware((Admin::class))->group(function(){
     Route::get('/admin', [AdminController::class, 'index']) -> name('admin.index');
 });
+
+Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+
+Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
+
+Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+
+Route::get('/reports/{report}', [ReportController::class, 'show'])->name('reports.show');
+
+Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
 
 require __DIR__.'/auth.php';

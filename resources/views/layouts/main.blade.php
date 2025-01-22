@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">Cleaning</div>
+        <div class="logo">МОЙ НЕ САМ</div>
     </header> 
     <main>
         @yield('content')
