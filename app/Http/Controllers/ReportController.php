@@ -54,16 +54,6 @@ class ReportController extends Controller
         return view('report.show', compact('report'));
     }
 
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'number' => 'required',
-            'description' => 'required',
-        ]);
-
-        Report::update($request->all());
-        return redirect()->back();
-    }
 
     public function destroy(Report $report)
     {
