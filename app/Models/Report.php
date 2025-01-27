@@ -17,7 +17,7 @@ class Report extends Model
         return $this->BelongsTo(User::class);
     }
 
-    public function services(): BelongsTo{
+    public function service(): BelongsTo{
         return $this->BelongsTo(Service::class);
     }
 }

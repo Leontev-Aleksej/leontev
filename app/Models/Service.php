@@ -12,7 +12,7 @@ class Service extends Model
 
     protected $guarded=[];
 
-    public function services(): HasMany{
+    public function reports(): HasMany{
         return $this->hasMany(Report::class, 'status_id', 'id');
     }
 }

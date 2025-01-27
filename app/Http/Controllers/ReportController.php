@@ -1,64 +1,88 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Report;
-use App\Models\Service;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Http\Request;
+use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class ReportController extends Controller
 {
-
-
-
-    public function index(){
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
         $reports = Report::where('user_id', Auth::user()->id)->get();
-        $services = Service::all();
-        $userId = Auth::id();
-        return view('report.index', compact('reports', 'userId', 'services'));
+        return view('reports.index', compact('reports'));
     }
 
-    public function create() {
-        $services = Service::all();
-        $reports = Report::all();
-        return view('report.create', compact('services', 'reports'));
-    }
-
-
-    public function store(Request $request): RedirectResponse {
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request): RedirectResponse 
+    {
         $request->validate([
             'address' => ['required', 'string', 'max:255'],
             'contact' => ['required', 'string'],
             'date' => ['required', 'date'],
             'payment' => ['required', 'string'],
-        ]);
-
-        Report::create([
+          ]);
+          
+          Report::create([
             'address' => $request->address,
             'contact' => $request->contact,
             'date' => $request->date,
             'time'=>$request->time,
             'payment'=>$request->payment,
             "user_id" => Auth::user()->id,
-            "service_id" => $request->service,
         ]);
 
-        return redirect()->route('dashboard');
+          return redirect()->route('dashboard');
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(string $id)
     {
-        return view('report.show', compact('report'));
+        $report = Report::find($id);
+        return view('reports.show', compact('reports'));
     }
 
-
-    public function destroy(Report $report)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
-        $report -> delete();
-        return redirect()->back();
+        $request->validate([
+            'address' => 'required|max:255',
+            'contact' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'payment' => 'required',
+          ]);
+          $report = Report::find($id);
+          $report->update($request->all());
+          return redirect()->route('reports.index')
+            ->with('success', 'Report updated successfully.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $report = Report::find($id);
+        $report->delete();
+        return redirect()->route('reports.index')
+            ->with('success', 'Report deleted successfully');
+    }
+
+    public function create()
+    {
+      $reports = Report::all();
+      return view('reports.create', compact('reports'));
+    }
 }

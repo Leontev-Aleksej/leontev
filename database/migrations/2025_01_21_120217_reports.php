@@ -18,19 +18,6 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('payment');
-            
-            $table->foreignId('user_id')
-            ->nullable()
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->nullOnDelete();
-            $table->foreignId('services_id')
-            ->nullable()
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->nullOnDelete();
-
-            $table->softDeletes();
             $table->timestamps();
         });
     }
