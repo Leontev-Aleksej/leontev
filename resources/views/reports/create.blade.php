@@ -1,14 +1,18 @@
 <x-app-layout>
-<div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-[20px]">
     <div>
       <div>
-        <h3>Add a Report</h3>
+        <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Создание запроса</h3>
         <form action="{{ route('reports.store') }}" method="POST">
           @csrf
-          <div>
+          <div class="flex flex-col justify-between p-4 leading-normal">
+            <p>Адрес:</p>
             <textarea id="address" name="address" rows="1" required></textarea>
+            <p>Контакты:</p>
             <textarea id="contact" name="contact" rows="1" required></textarea>
+            <p>Дата:</p>
             <input id="date" name="date" type="date" required/>
+            <p>Время:</p>
             <input id="time" type="time" name="time">
             {{-- <input type="text" list="cleaning" id="payment" name="payment">
             <datalist id="cleaning">
@@ -17,6 +21,7 @@
               <option value="послестроительная уборка">
               <option value="химчистка ковров и мебели">
             </datalist> --}}
+            <p>Способ оплаты:</p>
               <select id="payment" name="payment" required>
                   <option value='Наличный'>Наличный</option>
                   <option value='Безналичный'>Безналичный</option>
@@ -24,7 +29,7 @@
               </select>
           </div>
           <br>
-          <button type="submit" class="btn btn-primary">Create Report</button>
+          <button type="submit" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Отправить запрос</button>
         </form>
       </div>
     </div>

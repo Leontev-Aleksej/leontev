@@ -54,19 +54,12 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         $request->validate([
-            'address' => 'required|max:255',
-            'contact' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            'payment' => 'required',
+            'status' => 'required',
+            'id' => 'required',
           ]);
-          $report = Report::find($id);
-          $report->update($request->all());
-          return redirect()->route('reports.index')
-            ->with('success', 'Report updated successfully.');
     }
 
     /**

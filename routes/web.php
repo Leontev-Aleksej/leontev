@@ -13,6 +13,7 @@ use App\Http\Controllers\ReportController;
 
 Route::middleware((Admin::class))->group(function(){
     Route::get('/admin', [AdminController::class, 'index']) -> name('admin.index');
+    Route::put('/update', [ReportController::class, 'update'])->name('reports.update');
 });
 
 // Route::get('/', [ReportController::class, 'index'])->name('dashboard');

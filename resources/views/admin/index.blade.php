@@ -1,42 +1,27 @@
-<h1>Админ панель</h1>
+<h1 class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-[20px]">Админ панель</h1>
 <x-app-layout>
-    <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <div class="container-fluid">
-          <div class="justify-end ">
-            <div class="col ">
-              <a class="btn btn-sm btn-success" href={{ route('reports.create') }}>Add Report</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <div class="w-full max-w-96 flex">
-        <div class="row">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-[20px] ">
+    <a class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href={{ route('reports.create') }}>Создать запрос</a>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 place-items-center">
           @foreach ($reports as $report)
-            <div class="">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title">{{ $report->address }}</h5>
+          <div class="flex flex-col mt-4">
+                  <h5 class="mb-2 text-xl font-medium leading-tight">{{ $report->address }}</h5>
+                  <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->contact }}</p>
+                  <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->date }}</p>
+                  <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->time }}</p>
+                  <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->payment }}</p>
+                  <form action="{{route('reports.update', $report->id)}}" method="POST">
+                  @csrf
+                  @method('PUT')
+                      <input type="hidden" name="id" value="{{$report->id}}">
+                      <select name="status" onchange="document.getElementById('form-update-{{$report->id}}').submit()" class="mt-2">
+                          <option value='Новая'>Новая</option>
+                          <option value='Оказана'>Оказана</option>
+                          <option value='Отменена'>Отменена</option>
+                      </select>
+                  </form>
                 </div>
-                <div class="card-body">
-                  <p class="card-text">{{ $report->contact }}</p>
-                  <p class="card-text">{{ $report->date }}</p>
-                  <p class="card-text">{{ $report->time }}</p>
-                  <p class="card-text">{{ $report->payment }}</p>
-                </div>
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm">
-                      
-                
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
           @endforeach
         </div>
       </div>
-    </body>
     </x-app-layout>
