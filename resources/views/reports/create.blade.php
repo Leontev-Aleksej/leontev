@@ -14,6 +14,12 @@
             <input id="date" name="date" type="date" required/>
             <p>Время:</p>
             <input id="time" type="time" name="time">
+            <p>Вид услуги</p>
+            <select id="service" name="service" required>
+              @foreach($services as $service)
+              <option value='{{$service->id}}'>{{$service->title}}</option>
+              @endforeach
+            </select>
             {{-- <input type="text" list="cleaning" id="payment" name="payment">
             <datalist id="cleaning">
               <option value="генеральная уборка">
@@ -26,6 +32,7 @@
                   <option value='Наличный'>Наличный</option>
                   <option value='Безналичный'>Безналичный</option>
                   <option value='Частичный'>Частичный</option>
+                  
               </select>
           </div>
           <br>

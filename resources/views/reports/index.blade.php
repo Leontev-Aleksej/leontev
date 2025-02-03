@@ -9,6 +9,11 @@
     <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->contact }}</p>
     <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->date }}</p>
     <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->time }}</p>
+    @foreach($services as $service)
+    @if($service->id==$report->service_id)
+        <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{$service->title}}</p>
+    @endif
+    @endforeach
     <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->payment }}</p>
     <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->status }}</p>
   </div>

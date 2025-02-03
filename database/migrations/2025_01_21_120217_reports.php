@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('contact');
             $table->date('date');
             $table->time('time');
+            $table->foreignId('service_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('payment');
+            $table->enum('status', ['Новая', 'Оказана', 'Отменена']);
             $table->timestamps();
         });
     }

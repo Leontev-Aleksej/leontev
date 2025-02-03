@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\softDeletes;
 
 class Report extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $guarded=[];
 
@@ -17,7 +17,7 @@ class Report extends Model
         return $this->BelongsTo(User::class);
     }
 
-    public function service(): BelongsTo{
+    public function status(): BelongsTo{
         return $this->BelongsTo(Service::class);
     }
 }
