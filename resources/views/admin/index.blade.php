@@ -9,8 +9,13 @@
                   <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->contact }}</p>
                   <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->date }}</p>
                   <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->time }}</p>
+                  @foreach($services as $service)
+                  @if($service->id==$report->service_id)
+                  <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{$service->title}}</p>
+                  @endif
+                  @endforeach
                   <p class="w-full border-b-2 border-blue-500 border-opacity-100 px-4 py-3">{{ $report->payment }}</p>
-                  <form action="{{route('reports.update', $report->id)}}" method="POST">
+                  {{-- <form action="{{route('reports.update', $report->id)}}" method="POST">
                   @csrf
                   @method('PUT')
                       <input type="hidden" name="id" value="{{$report->id}}">
@@ -19,8 +24,22 @@
                           <option value='Оказана'>Оказана</option>
                           <option value='Отменена'>Отменена</option>
                       </select>
+                  </form> --}}
+                  @if($report->status=="новая")
+                  <form id="form-update-{{$report->id}}" action="{{route('reports.update')}}" method="POST">
+                  @csrf
+                  @method('PUT')
+                      <input type="hidden" name="id" value="{{$report->id}}">
+                      <select name="status" onchange="document.getElementById('form-update-{{$report->id}}').submit()">
+                          <option value='Новая'>Новая</option>
+                          <option value='Оказана'>Оказана</option>
+                          <option value='Отменена'>Отменена</option>
+                      </select>
                   </form>
-                </div>
+                  @else
+                    <p>{{$report->status}}</p>
+                  @endif
+            </div>
           @endforeach
         </div>
       </div>
